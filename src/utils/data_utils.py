@@ -41,10 +41,6 @@ def extract_labelled_samples(df, columns, dt, mix_mod):
         then only the dt amount of days are extracted, otherwise the entire sequence before
     :return:
     """
-    """
-        Split up each patient sequence such that it contains a labelled
-        observation as last element.
-    """
     X = []
     meta = []
     for pid in df.id.unique():
@@ -211,7 +207,7 @@ def get_patient_dfs(
     :param miss_len:
     :param pad_token:
     :param pre_pad:
-    :return:
+    :return: training and test sets
     """
     # read data from csv files
     df_train = pd.read_csv(data_path + "df_train.csv")
@@ -250,7 +246,7 @@ def process_sequences(obs_sequences, labels, seq_len, miss_len, pad_token, pre_p
     :param int miss_len: threshold for consecutive missing rows
     :param int pad_token: token to be used as padding in the sequences
     :param bool pre_pad: if True, the sequences are pre-padded, otherwise post-padded
-    :return:
+    :return: processed observation sequences, corresponding label sequences and list of sequence lengths
     """
 
     # if a sequence contains more than miss_len consecutive missing observations, cut that part out and divide it
